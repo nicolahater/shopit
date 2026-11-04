@@ -4,31 +4,11 @@ spring:
     username: manager
     password: manager
 
- # keycloak
-  security:
-    oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8082/realms/selmag
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            client-id: manager-app
-            client-secret: JwByKV4Y8m95GDYTNqJH6jfaj5dXpv8F
-            scope:
-              - openid
-              - view_catalogue
-              - edit_catalogue
-              - microprofile-jwt
-
 prodshop:
   service:
     catalogue:
       uri: http://localhost:8081
 
-    # This is for basic auth authentication. Without keycloak
-
-#sdf asdf asdf ads fsd ntkjb
-#      username: catalogue_service_user
-#      password: password
+#     This is for basic auth authentication. Without keycloak
+      username: catalogue_service_user
+      password: password

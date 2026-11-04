@@ -1,11 +1,10 @@
 spring:
-  # This is for basic auth authentication. Without keycloak
-#  security:
-#    user:
-#      name: catalogue_service_user
-#      password: password
-#      roles:
-#        - SERVICE
+  security:
+    user:
+      name: catalogue_service_user
+      password: password
+      roles:
+        - SERVICE
 
   datasource:
     url: jdbc:postgresql://localhost:5437/catalogue
@@ -17,8 +16,6 @@ spring:
     schemas:
       - public
       - catalogue
-
-
 
 server:
   port: 8081

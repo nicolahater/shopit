@@ -25,7 +25,7 @@ public class ClientBeans {
     public RestClientProductsRestClient productsRestClient() {
         return new RestClientProductsRestClient(RestClient.builder()
                 .baseUrl(baseUrl)
-//                .requestInterceptor(new BasicAuthenticationInterceptor(catalogueUsername, cataloguePassword))  // This is for basic auth authentication. Without keycloak
+                .requestInterceptor(new BasicAuthenticationInterceptor(catalogueUsername, cataloguePassword))
                 .build());
     }
 }
