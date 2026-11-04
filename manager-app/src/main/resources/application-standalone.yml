@@ -28,5 +28,7 @@ prodshop:
       uri: http://localhost:8081
 
     # This is for basic auth authentication. Without keycloak
+
+    
 #      username: catalogue_service_user
 #      password: password
