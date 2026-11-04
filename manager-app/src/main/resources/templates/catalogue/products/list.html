@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Products List</title>
+</head>
+<body>
+<a data-th-href="@{/catalogue/products/create}">+ Create new Product</a>
+<h1>Products List</h1>
+<form action="get" data-th-action="@{/catalogue/products/list}">
+    <label for="search_by_filter">Filter</label>
+    <input type="search" data-th-value="${filter}" name="filter" id="search_by_filter">
+    <button type="submit">Search</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Product</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-th-each="product : ${products}">
+        <td data-th-text="${product.id}"></td>
+        <td>
+            <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}" data-th-text="${product.title}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
