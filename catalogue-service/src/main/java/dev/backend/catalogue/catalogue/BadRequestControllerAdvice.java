@@ -1,8 +1,7 @@
-package dev.backend.catalogue;
+package dev.backend.catalogue.catalogue;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

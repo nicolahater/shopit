@@ -25,6 +25,18 @@ public class ProductRestController {
         return product;
     }
 
+    // TODO: check
+//    @GetMapping("/{some}")
+//    public String getSomeInt(@PathVariable("some") Integer some) {
+//        return "hello, Integer";
+//    }
+
+//    // TODO: check
+//    @GetMapping("/{some}")
+//    public String getSomeStr(@PathVariable("some") String some) {
+//        return "hello, String";
+//    }
+
     @GetMapping
     public Product findProduct(@ModelAttribute("product") Product product) {
         return product;

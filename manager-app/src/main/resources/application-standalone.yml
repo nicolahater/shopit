@@ -3,12 +3,25 @@ spring:
     url: jdbc:postgresql://localhost:5438/manager
     username: manager
     password: manager
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8084/realms/appstore
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: manager-app
+            client-secret: iYPZN1MhW6bMJisdl8rE3XHaDUomdkfSgQBc0oN8rfslfWHpXKD4CJR02LDeEWD396hiCQZb1YtIj9q2bAozFf
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
 
 prodshop:
   service:
     catalogue:
       uri: http://localhost:8081
-
-#     This is for basic auth authentication. Without keycloak
-      username: catalogue_service_user
-      password: password
+      registration-id: keycloak

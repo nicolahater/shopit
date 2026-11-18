@@ -48,13 +48,14 @@ public class ProductController {
     public String updateProduct(
             @ModelAttribute(value = "product", binding = false) Product product,
             UpdateProductPayload payload,
-            BindingResult bindingResult,
-            Model model
+            Model model,
+            HttpServletResponse response
     ) {
         try {
             productsRestClient.updateProduct(product.id(), payload.title(), payload.details());
             return "redirect:/catalogue/products/%d".formatted(product.id());
         } catch(BadRequestException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("payload", payload);
             model.addAttribute("errors", e.getErrors());
 //            return "redirect:/catalogue/products/%d/edit".formatted(product.getId());

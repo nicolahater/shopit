@@ -4,7 +4,9 @@ import dev.backend.manager.client.BadRequestException;
 import dev.backend.manager.client.ProductsRestClient;
 import dev.backend.manager.entity.Product;
 import dev.backend.manager.controller.payload.NewProductPayload;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,14 +60,16 @@ public class ProductsController {
 //    }
 
     @PostMapping("/create")
-    public String createProduct(NewProductPayload payload, BindingResult bindingResult, Model model) {
+    public String createProduct(NewProductPayload payload,  Model model, HttpServletResponse response) {
         try {
             Product product = productsRestClient.createProduct(payload.title(), payload.details());
             return "redirect:/catalogue/products/%d".formatted(product.id());
         } catch (BadRequestException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("payload", payload);
             model.addAttribute("errors", e.getErrors());
-            return "/catalogue/products/create";
+//            return "/catalogue/products/create";
+            return "catalogue/products/create";
         }
     }
 }

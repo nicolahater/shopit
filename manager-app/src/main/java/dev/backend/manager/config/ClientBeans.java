@@ -1,11 +1,15 @@
 package dev.backend.manager.config;
 
 import dev.backend.manager.client.RestClientProductsRestClient;
+import dev.backend.manager.security.OAuthClientHttpRequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.web.client.RestClient;
 
 @Configuration
@@ -13,19 +17,22 @@ import org.springframework.web.client.RestClient;
 public class ClientBeans {
 
     @Value("${prodshop.service.catalogue.uri}")
-    private String baseUrl;
+    private String catalogueBaseUri;
 
-    @Value("${prodshop.service.catalogue.username:username}")
-    private String catalogueUsername;
-
-    @Value("${prodshop.service.catalogue.password:password}")
-    private String cataloguePassword;
+//    @Value("${prodshop.services.catalogue.registration-id}")
+    private String registrationId = "keycloak";
 
     @Bean
-    public RestClientProductsRestClient productsRestClient() {
+    public RestClientProductsRestClient productsRestClient(
+            ClientRegistrationRepository clientRegistrationRepository,
+            OAuth2AuthorizedClientRepository authorizedClientRepository
+    ) {
         return new RestClientProductsRestClient(RestClient.builder()
-                .baseUrl(baseUrl)
-                .requestInterceptor(new BasicAuthenticationInterceptor(catalogueUsername, cataloguePassword))
+                .baseUrl(catalogueBaseUri)
+                .requestInterceptor(
+                        new OAuthClientHttpRequestInterceptor(
+                                new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository,
+                                        authorizedClientRepository), registrationId))
                 .build());
     }
 }
