@@ -13,17 +13,19 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepo
 import org.springframework.web.client.RestClient;
 
 @Configuration
-@PropertySource("classpath:/application-standalone.yml")
+//@PropertySource("classpath:/application-standalone.yml")
 public class ClientBeans {
 
-    @Value("${prodshop.service.catalogue.uri}")
-    private String catalogueBaseUri;
+//    @Value("${prodshop.service.catalogue.uri}")
+//    private String catalogueBaseUri;
 
-//    @Value("${prodshop.services.catalogue.registration-id}")
-    private String registrationId = "keycloak";
+//    @Value("${prodshop.service.catalogue.registration-id}")
+//    private String registrationId = "keycloak";
 
     @Bean
     public RestClientProductsRestClient productsRestClient(
+            @Value("${prodshop.service.catalogue.uri}") String catalogueBaseUri,
+            @Value("${prodshop.service.catalogue.registration-id}") String registrationId,
             ClientRegistrationRepository clientRegistrationRepository,
             OAuth2AuthorizedClientRepository authorizedClientRepository
     ) {
